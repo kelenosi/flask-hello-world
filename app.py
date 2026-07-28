@@ -15,12 +15,18 @@ def hello_world():
 
 @app.route("/db_test")
 def db_test():
+    if not DATABASE_URL:
+        return "Database connection failed: DATABASE_URL is not configured", 500
+
     conn = None
+
     try:
         conn = psycopg2.connect(DATABASE_URL)
         return "Database connection successful"
+
     except Exception as e:
-        return f"Database connection failed: {e}"
+        return f"Database connection failed: {e}", 500
+
     finally:
         if conn is not None:
             conn.close()
