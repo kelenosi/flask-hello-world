@@ -32,7 +32,7 @@ def db_test():
             conn.close()
 
 
- @app.route("/db_create")
+@app.route("/db_create")
 def db_create():
     conn = None
     cur = None
